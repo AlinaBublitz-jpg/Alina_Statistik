@@ -197,3 +197,7 @@ plt.show()
 # Ausgabe der Designmatrix in der Konsole
 print("Designmatrix (Vandermonde-Matrix) für polynomiales Modell bis Grad 12:")
 print(X_df)
+
+
+
+

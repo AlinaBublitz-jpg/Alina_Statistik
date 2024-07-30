@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 import plotly.graph_objects as go
-from sklearn.linear_model import Ridge
+from sklearn.linear_model import Ridge, RidgeCV
 from sklearn.metrics import mean_squared_error, r2_score
 
 # Gegebene Datenpunkte
@@ -27,40 +27,49 @@ y = np.array([point[1] for point in data_points])
 # Design-Matrix erstellen (Vandermonde-Matrix)
 X = np.vander(x, N=13, increasing=True)
 
+# Lambda-Werte, die untersucht werden sollen
+alphas = np.linspace(0.01, 110, 100)  # 100 Werte zwischen 0.01 und 110
+
+# Ridge-Regression mit Kreuzvalidierung
+ridge_cv = RidgeCV(alphas=alphas, store_cv_results=True)
+ridge_cv.fit(X, y)
+best_alpha = ridge_cv.alpha_
+
+print("\nBest Alpha (Lambda) from RidgeCV:")
+print(best_alpha)
+
+# Ridge-Regression mit dem besten Alpha-Wert
+ridge_regressor = Ridge(alpha=best_alpha)
+ridge_regressor.fit(X, y)
+y_pred_ridge = ridge_regressor.predict(X)
+
+# Berechnung des MSE für den besten Alpha-Wert
+mse_best_alpha = mean_squared_error(y, y_pred_ridge)
+print(f"\nMean Squared Error (MSE) for Best Alpha {best_alpha}: {mse_best_alpha:.2f}")
+
 # OLS-Schätzung der Parameter
 ols_params, residuals, rank, s = np.linalg.lstsq(X, y, rcond=None)
-print("\nOLS-Schätzung der Parameter:")
-print("OLS-Parameter (α):\n", ols_params)
-print("Residuals:", residuals)
-print("Rank der Matrix:", rank)
-print("Singularwerte der Matrix:", s)
+y_pred_ols = X @ ols_params
 
-# Ridge-Regression mit erhöhtem alpha-Wert, um die Ill-conditioned Warnung zu mindern
-ridge_regressor = Ridge(alpha=10.0)
-ridge_regressor.fit(X, y)
-ridge_params = ridge_regressor.coef_
-print("\nRidge-Regression:")
-print("Ridge-Parameter (α):\n", ridge_params)
+# Berechnung des MSE für OLS
+mse_ols = mean_squared_error(y, y_pred_ols)
+print(f"\nMean Squared Error (MSE) for OLS: {mse_ols:.2e}")
+
+# Berechnung von Bestimmtheitsmaß (R^2) und MSE für Ridge
+r2_ridge = r2_score(y, y_pred_ridge)
+
+# Berechnung von Bestimmtheitsmaß (R^2) für OLS
+r2_ols = r2_score(y, y_pred_ols)
+
+print("\nVergleich der Modelle:")
+print(f"OLS: R^2 = {r2_ols:.4f}, MSE = {mse_ols:.2e}")
+print(f"Ridge: R^2 = {r2_ridge:.4f}, MSE = {mse_best_alpha:.2e}")
 
 # Vorhersagen für Visualisierung
 x_vals = np.linspace(min(x), max(x), 400)
 X_vals = np.vander(x_vals, N=13, increasing=True)
 y_ols = X_vals @ ols_params
-y_ridge = X_vals @ ridge_params
-
-# Berechnung von Bestimmtheitsmaß (R^2) und MSE für OLS
-y_pred_ols = X @ ols_params
-r2_ols = r2_score(y, y_pred_ols)
-mse_ols = mean_squared_error(y, y_pred_ols)
-
-# Berechnung von Bestimmtheitsmaß (R^2) und MSE für Ridge
-y_pred_ridge = X @ ridge_params
-r2_ridge = r2_score(y, y_pred_ridge)
-mse_ridge = mean_squared_error(y, y_pred_ridge)
-
-print("\nVergleich der Modelle:")
-print(f"OLS: R^2 = {r2_ols:.4f}, MSE = {mse_ols:.4e}")
-print(f"Ridge: R^2 = {r2_ridge:.4f}, MSE = {mse_ridge:.4e}")
+y_ridge = ridge_regressor.predict(X_vals)
 
 # Visualisierung
 fig = go.Figure()
@@ -77,25 +86,15 @@ fig.update_layout(title='OLS vs Ridge Regression',
 param_df = pd.DataFrame({
     'Parameter': [f'α{i}' for i in range(13)],
     'OLS': ols_params,
-    'Ridge': ridge_params
+    'Ridge': ridge_regressor.coef_
 })
 print("\nAnzeige der Parameter:")
 print(param_df)
 
-# Ausgabe der Ergebnisse in der Konsole
-print("\nErgebnisse in der Konsole:")
-print(f"Bestimmtheitsmaß (R^2) für OLS: {r2_ols:.4f}")
-print(f"Mittlerer quadratischer Fehler (MSE) für OLS: {mse_ols:.4e}")
-print(f"Bestimmtheitsmaß (R^2) für Ridge: {r2_ridge:.4f}")
-print(f"Mittlerer quadratischer Fehler (MSE) für Ridge: {mse_ridge:.4e}")
-
-fig.show()
-
-
 # Visualisierung des MSE
 fig_mse = go.Figure()
-fig_mse.add_trace(go.Bar(name='OLS MSE', x=['OLS'], y=[mse_ols], text=[f'{mse_ols:.4e}'], textposition='auto'))
-fig_mse.add_trace(go.Bar(name='Ridge MSE', x=['Ridge'], y=[mse_ridge], text=[f'{mse_ridge:.4e}'], textposition='auto'))
+fig_mse.add_trace(go.Bar(name='OLS MSE', x=['OLS'], y=[mse_ols], text=[f'{mse_ols:.2e}'], textposition='auto'))
+fig_mse.add_trace(go.Bar(name='Ridge MSE', x=['Ridge'], y=[mse_best_alpha], text=[f'{mse_best_alpha:.2e}'], textposition='auto'))
 
 fig_mse.update_layout(title='MSE Vergleich: OLS vs Ridge Regression',
                       xaxis_title='Modell',

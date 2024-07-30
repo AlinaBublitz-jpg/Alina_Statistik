@@ -4,15 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4a0a51ce-73b7-4a72-9280-ab2ee4c5ed82" name="Changes" comment="Test">
-      <change afterPath="$PROJECT_DIR$/Rplots.pdf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Statistik.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/density_plot.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/Alina_Statistik.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
+    <list default="true" id="4a0a51ce-73b7-4a72-9280-ab2ee4c5ed82" name="Changes" comment="Statistik Code">
+      <change afterPath="$PROJECT_DIR$/.idea/Aufgabe 5/Berechnung Lambda.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/Aufgabe 5/Bild Plotten.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/Aufgabe 5/5 Weiterführung Vergleich.py" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Aufgabe 5/5 Weiterführung Vergleich.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/Aufgabe 5/Aufgabe5.py" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Aufgabe 5/Aufgabe5.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/Aufgabe 5/Bilder 5 Ridge.py" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Aufgabe 5/Maxtrix Ridge.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/Aufgabe 5/Bilder 5.py" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Aufgabe 5/Bilder 5.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -169,7 +168,21 @@
       <option name="project" value="LOCAL" />
       <updated>1722264209073</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Statistik Code">
+      <created>1722266573252</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1722266573252</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Statistik Code">
+      <created>1722266585965</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1722266585965</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -186,7 +199,8 @@
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="Statistik" />
-    <option name="LAST_COMMIT_MESSAGE" value="Statistik" />
+    <MESSAGE value="Statistik Code" />
+    <option name="LAST_COMMIT_MESSAGE" value="Statistik Code" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

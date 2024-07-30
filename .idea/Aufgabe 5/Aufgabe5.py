@@ -35,7 +35,7 @@ print("Rank der Matrix:", rank)
 print("Singularwerte der Matrix:", s)
 
 # Ridge-Regression mit erhöhtem alpha-Wert, um die Ill-conditioned Warnung zu mindern
-ridge_regressor = Ridge(alpha=10.0)
+ridge_regressor = Ridge(alpha=35.562323)
 ridge_regressor.fit(X, y)
 ridge_params = ridge_regressor.coef_
 print("\nRidge-Regression:")
